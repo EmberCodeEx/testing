@@ -1,0 +1,49 @@
+# This is a basic workflow to get started 
+
+name: Simple Manual Workflow - Three Env
+
+on: 
+
+  workflow_dispatch:
+  
+ jobs:
+   
+    DEV: 
+    
+      runs-on: ubuntu-latest
+      environment: DEV
+      
+      
+      steps:
+      
+        - uses: actions/checkout@v2
+        - name: Run a script
+          run:
+            echo " I'm running a job in the DEV enviornment"
+            
+      QA:
+       
+        runs-on: ubuntu-latest
+        envirnoment: QA
+        needs: DEV 
+        
+        steps:
+          - uses: actions/checkout@v2
+          - name: Run a script
+             run:
+               echo " I'm running a job in the QA enviornment"
+            
+            
+      PROD:
+       
+        runs-on: ubuntu-latest
+        envirnoment: PROD
+        needs: QA 
+        
+        steps:
+          - uses: actions/checkout@v2
+          - name: Run a script
+             run:
+               echo " I'm running a job in the PROD enviornment"
+            
+      
